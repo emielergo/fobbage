@@ -31,7 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'fobbage.herokuapp.com',
-    'fobbage-staging.herokuapp.com',
+    'fobbage-quiz.herokuapp.com',
     'localhost',
     '127.0.0.1',
     '192.168.0.141',
@@ -64,8 +64,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     # Disable runserver's static file serving
+    'daphne',
     'whitenoise.runserver_nostatic',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -93,7 +93,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'spa.middleware.SPAMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -196,7 +196,7 @@ REDIS_URL = os.environ.get("REDIS_URL", ('localhost', 6379))
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "BACKEND": "channels_redis.pubsub.RedisPubSubChannelLayer",
         "CONFIG": {
             "hosts": [REDIS_URL, ],
         },
@@ -204,13 +204,14 @@ CHANNEL_LAYERS = {
 }
 
 # CSRF
-# CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
-CSRF_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SAMESITE = 'None'
-CSRF_COOKIE_HTTPONLY = False
-SESSION_COOKIE_HTTPONLY = True
+CSRF_TRUSTED_ORIGINS = ["https://fobbage-quiz.herokuapp.com"]
+# CSRF_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SAMESITE = 'None'
 
 # contrib auth
 LOGIN_REDIRECT_URL = 'index'
 # for contrib .sites
 SITE_ID = 1
+
+# Hide autofield warnings
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
