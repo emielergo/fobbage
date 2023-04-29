@@ -31,7 +31,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'fobbage.herokuapp.com',
-    'fobbage-staging.herokuapp.com',
+    'fobbage-quiz.herokuapp.com',
     'localhost',
     '127.0.0.1',
     '192.168.0.141',
@@ -204,7 +204,7 @@ CHANNEL_LAYERS = {
 }
 
 # CSRF
-CSRF_TRUSTED_ORIGINS = ["https://fobbage.herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ["https://fobbage-quiz.herokuapp.com"]
 # CSRF_COOKIE_SAMESITE = 'None'
 # SESSION_COOKIE_SAMESITE = 'None'
 
